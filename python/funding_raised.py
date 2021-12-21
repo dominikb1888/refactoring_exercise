@@ -1,6 +1,3 @@
-import csv
-
-
 class FundingRaised:
     def filter_csv(csv_data, options):
         if options:
@@ -12,9 +9,12 @@ class FundingRaised:
 
     def where(options={}):
         with open("../startup_funding.csv", "rt") as csvfile:
-            file_data = csv.reader(csvfile, delimiter=",", quotechar='"')
-            headers = next(file_data)
-            csv_data = [dict(zip(headers, i)) for i in file_data]
+            lines = [line.rstrip() for line in csvfile]
+            csv_data = []
+            header = lines[0].split(",")
+            for line in lines[1:]:
+                words = line.split(",")
+                csv_data.append(dict(zip(header, words)))
 
         return FundingRaised.filter_csv(csv_data, options)
 
