@@ -1,10 +1,7 @@
-import csv
 import pandas as pd
 
 
 class FundingRaised:
-    # def __init__(self):
-    # self.data = pd.read_csv("../startup_funding.csv")
 
     def where(options={}):
         # df = self.data
