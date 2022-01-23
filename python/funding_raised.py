@@ -2,7 +2,6 @@ import pandas as pd
 
 
 class FundingRaised:
-
     def where(options={}):
         # df = self.data
         df = pd.read_csv("../startup_funding.csv")
