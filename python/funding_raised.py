@@ -31,7 +31,7 @@ class FundingRaised:
 
         output = []
         for row in csv_data:
-            mapped = dict(zip(headers, csv_data))
+            mapped = dict(zip(headers, row))
             output.append(mapped)
 
         return output
