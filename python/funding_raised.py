@@ -2,25 +2,17 @@ import pandas as pd
 
 
 class FundingRaised:
-    def filter_csv(csv_data, options):
-        if options:
-            key = list(options.keys())[0]
-            fltrd = [row for row in csv_data if row[key] == options[key]]
-            del options[key]
-
-        return FundingRaised.filter_csv(fltrd, options) if options else fltrd
-
     def where(options={}):
-        with open("../startup_funding.csv", "rt") as csvfile:
-            file_data = csv.reader(csvfile, delimiter=",", quotechar='"')
-            headers = next(file_data)
-            csv_data = [dict(zip(headers, i)) for i in file_data]
+        # df = self.data
+        df = pd.read_csv("../startup_funding.csv")
+        for key, value in options.items():
+            if key in df.columns.tolist():
+                result = df[df[key] == value]
 
-        return FundingRaised.filter_csv(csv_data, options)
+        return result.to_dict(orient="records")
 
     def find_by(options):
-        result = FundingRaised.where(options)
-        return result[0]
+        return FundingRaised.where(options)[0]
 
 
 class RecordNotFound(Exception):
