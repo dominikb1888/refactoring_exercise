@@ -6,11 +6,13 @@ class FundingRaised:
     def where(options={}):
         with open("../startup_funding.csv", "rt") as csvfile:
             data = csv.reader(csvfile, delimiter=",", quotechar='"')
-            # skip header
-            next(data)
             csv_data = []
             for row in data:
                 csv_data.append(row)
+
+        headers = csv_data[0]
+        csv_data = csv_data[1:]
+
         # permalink,company_name,number_employees,category,city,state,funded_date,raised_amount,raised_currency,round
         column_order = {
             "company_name": 1,
@@ -29,17 +31,7 @@ class FundingRaised:
 
         output = []
         for row in csv_data:
-            mapped = {}
-            mapped["permalink"] = row[0]
-            mapped["company_name"] = row[1]
-            mapped["number_employees"] = row[2]
-            mapped["category"] = row[3]
-            mapped["city"] = row[4]
-            mapped["state"] = row[5]
-            mapped["funded_date"] = row[6]
-            mapped["raised_amount"] = row[7]
-            mapped["raised_currency"] = row[8]
-            mapped["round"] = row[9]
+            mapped = dict(zip(headers, csv_data))
             output.append(mapped)
 
         return output
