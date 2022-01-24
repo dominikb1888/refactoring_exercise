@@ -11,34 +11,21 @@ class FundingRaised:
             csv_data = []
             for row in data:
                 csv_data.append(row)
+        # permalink,company_name,number_employees,category,city,state,funded_date,raised_amount,raised_currency,round
+        column_order = {
+            "company_name": 1,
+            "city": 4,
+            "state": 5,
+            "round": 9,
+        }
 
-        if "company_name" in options:
-            result = []
-            for row in csv_data:
-                if row[1] == options["company_name"]:
-                    result.append(row)
-            csv_data = result
-
-        if "city" in options:
-            result = []
-            for row in csv_data:
-                if row[4] == options["city"]:
-                    result.append(row)
-            csv_data = result
-
-        if "state" in options:
-            result = []
-            for row in csv_data:
-                if row[5] == options["state"]:
-                    result.append(row)
-            csv_data = result
-
-        if "round" in options:
-            result = []
-            for row in csv_data:
-                if row[9] == options["round"]:
-                    result.append(row)
-            csv_data = result
+        for column_name, column_number in column_order.items():
+            if column_name in options:
+                result = []
+                for row in csv_data:
+                    if row[column_number] == options[column_name]:
+                        result.append(row)
+                csv_data = result
 
         output = []
         for row in csv_data:
