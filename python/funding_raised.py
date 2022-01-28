@@ -6,8 +6,12 @@ class FundingRaised:
         with open(filepath, "rt") as csvfile:
             self.data = [row for row in csv.DictReader(csvfile)]
 
-    def where(self, options={}):
-        return [row for row in self.data if row | options == row]
+    @staticmethod
+    def _filter(data, options):
+        return (row for row in data if row | options == row)
 
-    def find_by(self, options):
-        return next(row for row in self.data if row | options == row)
+    def where(self, options={}):
+        return list(FundingRaised._filter(self.data, options))
+
+    def find_by(self, options={}):
+        return next(FundingRaised._filter(self.data, options))
